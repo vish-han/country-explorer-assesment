@@ -15,7 +15,6 @@ const playfair = Playfair_Display({
     variable: '--font-playfair',
     display: 'swap',
 });
-
 export default function HomePage() {
     const [mounted, setMounted] = useState(false);
 
