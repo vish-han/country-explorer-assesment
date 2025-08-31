@@ -1,14 +1,22 @@
 import { SearchBar } from '@/components/ui/SeachBar';
 import Navbar from '@/components/ui/Navbar';
+import Image from 'next/image';
 
 export default function HomePage() {
-
     return (
         <div className="min-h-screen relative overflow-hidden">
-            <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-20000 hover:scale-105"
-                style={{ backgroundImage: "url('/img/background_v2.webp')" }}
-                aria-hidden="true"
+            {/* Background Image with Next.js Image optimization */}
+            <Image
+                src="/img/background_v2.webp"
+                alt=""
+                width={1920}
+                height={1080}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-20000 hover:scale-105"
+                priority
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+Rj+V1F9t7C3iFKHfzLDGDdF8qQPH6dqV//9k="
+                sizes="100vw"
+                fill={false}
             />
 
             <Navbar />
