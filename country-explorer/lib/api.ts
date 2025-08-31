@@ -1,4 +1,4 @@
-import {Country} from "@/lib/types";
+import {Country} from "@/types/CountryTypes";
 import {BASE_URL} from "@/lib/const";
 
 export class CountriesAPI {
@@ -20,7 +20,7 @@ export class CountriesAPI {
 
     static async getAllCountries(): Promise<Country[]> {
         try {
-            const response = await fetch(`${BASE_URL}/all?fields=name,flags,capital,region,currencies`);
+            const response = await fetch(`${BASE_URL}/all?fields=name,flags,capital,region,currencies,population`);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             return await response.json();
         } catch (error) {
