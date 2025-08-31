@@ -1,5 +1,6 @@
 import {Country} from "@/types/CountryTypes";
 import {ChevronRight, DollarSign, Globe, MapPin, Users} from "lucide-react";
+import Image from 'next/image'
 
 export  const CountryCard = ({ country }: { country: Country; }) => {
 

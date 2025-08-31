@@ -1,5 +1,5 @@
 import './globals.css';
-import { Inter, Playfair_Display,Comfortaa } from 'next/font/google';
+import {Comfortaa } from 'next/font/google';
 import {Metadata} from "next";
 
  const comfortaa = Comfortaa({

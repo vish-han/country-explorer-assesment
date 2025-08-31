@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useDebounced } from '@/hooks/useDebounced';
 import { Country } from '@/types/CountryTypes';
 import { useCountries } from "@/hooks/useCountries";
+import Image from "next/image";
 
 interface SearchBarProps {
     variant?: 'default' | 'compact';
@@ -324,7 +325,7 @@ export function SearchBar({
 
                             {suggestions.map((country, index) => (
                                 <button
-                                    key={country.cca3}
+                                    key={index}
                                     onClick={() => selectSuggestion(country)}
                                     className={`
                                         w-full px-6 py-4 text-left flex items-center gap-4 
@@ -341,7 +342,7 @@ export function SearchBar({
                                 >
                                     {/* Enhanced Flag */}
                                     <div className="relative flex-shrink-0">
-                                        <img
+                                        <Image
                                             src={country.flags.png}
                                             alt={country.flags.alt || `${country.name.common} flag`}
                                             className={`
@@ -350,6 +351,8 @@ export function SearchBar({
                                                 ${selectedIndex === index ? 'shadow-lg scale-105' : 'group-hover:shadow-lg group-hover:scale-105'}
                                             `}
                                             loading="lazy"
+                                            width={32}
+                                            height={32}
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/10 rounded-md" />
                                     </div>

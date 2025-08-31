@@ -29,6 +29,7 @@ const StatsSection = ({ countryData }:{countryData:Country}) => {
                 icon={DollarSign}
                 title="Currency"
                 value={getCurrencyDisplay(countryData)}
+                subtitle={''}
             />
         </div>
     );

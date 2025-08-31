@@ -1,16 +1,12 @@
+import Navbar from "@/components/ui/Navbar";
+
 export default function Loading(){
     // Skeleton animation class
     const skeletonClass = "animate-pulse bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200 bg-[length:200%_100%]";
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
-            {/* Navbar Skeleton */}
-            <div className="h-16 bg-white/90 backdrop-blur-sm border-b border-white/20">
-                <div className="max-w-7xl mx-auto px-6 py-4">
-                    <div className={`h-8 w-32 rounded-lg ${skeletonClass}`}></div>
-                </div>
-            </div>
-
+        <Navbar/>
             <div className="max-w-7xl mx-auto px-6 py-8">
                 {/* Hero Section Skeleton */}
                 <div className="mb-12">

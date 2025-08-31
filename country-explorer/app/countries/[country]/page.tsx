@@ -6,9 +6,11 @@ import CountryStatsGrid from "../components/StatsSection";
 import CountryDetailsSections from "../components/DetailSection";
 import {CountriesAPI} from "@/lib/api";
 
-export default async function CountryDetailPage({ params }:{params:{country:string}}) {
-    const countryName = decodeURIComponent(params.country);
+export default async function CountryDetailPage({ params }:{params:Promise<{country:string}>}) {
+    const resolvedParams = await params;
+    const countryName = decodeURIComponent(resolvedParams.country);
     let countryData;
+
     try {
         countryData = await CountriesAPI.getCountryByName(countryName);
     } catch (error) {

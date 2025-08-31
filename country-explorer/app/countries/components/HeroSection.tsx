@@ -1,5 +1,6 @@
 import React from 'react';
 import {Country} from "@/types/CountryTypes";
+import Image from "next/image";
 
 const CountryHeroSection = ({ countryData }:{countryData:Country}) => {
     return (
@@ -67,8 +68,8 @@ const CountryHeroSection = ({ countryData }:{countryData:Country}) => {
                             {/* Asia */}
                             <path
                                 d="M450 50 L600 40 L650 80 L680 120 L620 160 L580 140 L520 100 L450 80 Z"
-                                fill={countryData.continents.includes('Asia') ? '#f97316' : '#e2e8f0'}
-                                stroke={countryData.continents.includes('Asia') ? '#ea580c' : '#cbd5e1'}
+                                fill={countryData.continents?.includes('Asia') ? '#f97316' : '#e2e8f0'}
+                                stroke={countryData.continents?.includes('Asia') ? '#ea580c' : '#cbd5e1'}
                                 strokeWidth="2"
                                 className="transition-all duration-500"
                             />

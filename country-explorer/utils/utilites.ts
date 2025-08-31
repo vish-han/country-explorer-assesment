@@ -1,10 +1,15 @@
 import {Country} from "@/types/CountryTypes";
 
-export const formatPopulation = (pop: string | number | bigint) => {
-    return new Intl.NumberFormat().format(pop);
+export const formatPopulation = (pop: string | number) => {
+    const numValue = typeof pop === 'string' ? parseInt(pop, 10) : pop;
+    return new Intl.NumberFormat().format(numValue);
 };
 
 export const formatArea = (area: string | number | bigint) => {
+    if (typeof area === 'string') {
+        const numValue = parseFloat(area);
+        return new Intl.NumberFormat().format(numValue);
+    }
     return new Intl.NumberFormat().format(area);
 };
 

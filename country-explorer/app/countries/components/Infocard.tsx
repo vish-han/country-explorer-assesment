@@ -1,6 +1,14 @@
 import React from 'react';
+import { LucideIcon } from 'lucide-react';
 
-const InfoCard = ({ icon: Icon, title, value, subtitle = null }) => (
+interface InfoCardProps {
+    icon: LucideIcon;
+    title: string;
+    value: string;
+    subtitle?: string | null;
+}
+
+const InfoCard = ({ icon: Icon, title, value, subtitle = null }: InfoCardProps) => (
     <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300">
         <div className="flex items-start space-x-4">
             <div className="p-3 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg">

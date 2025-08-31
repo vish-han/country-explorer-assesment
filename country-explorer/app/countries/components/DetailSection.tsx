@@ -4,6 +4,7 @@ import { Globe, MapPin, ExternalLink, Flag } from 'lucide-react';
 import SectionCard from './SectionCard';
 import { getPhoneCode, getLanguages } from '@/utils/utilites';
 import {Country} from "@/types/CountryTypes";
+import Image from "next/image";
 
 const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country,getBorders:()=>string}) => {
     return (
@@ -29,7 +30,7 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                         </div>
                         <div className="flex justify-between items-center py-3 border-b border-slate-100">
                             <span className="text-slate-600">Continents</span>
-                            <span className="font-medium text-slate-800">{countryData.continents.join(', ')}</span>
+                            <span className="font-medium text-slate-800">{countryData.continents?.join(', ')}</span>
                         </div>
                         <div className="flex justify-between items-center py-3 border-b border-slate-100">
                             <span className="text-slate-600">Borders</span>
@@ -37,7 +38,7 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                         </div>
                         <div className="flex items-center justify-center mt-6">
                             <a
-                                href={countryData.maps.googleMaps }
+                                href={countryData.maps?.googleMaps }
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-3 rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -93,7 +94,7 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                         </div>
                         <div className="flex justify-between items-center py-3 border-b border-slate-100">
                             <span className="text-slate-600">Top Level Domain</span>
-                            <span className="font-medium text-slate-800">{countryData.tld.join(', ')}</span>
+                            <span className="font-medium text-slate-800">{countryData.tld?.join(', ')}</span>
                         </div>
                         <div className="flex justify-between items-center py-3 border-b border-slate-100">
                             <span className="text-slate-600">ISO Code (Alpha-2)</span>
@@ -212,7 +213,7 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                 <SectionCard title="Explore Further">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <a
-                            href={countryData.maps.googleMaps}
+                            href={countryData.maps?.googleMaps}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200 hover:border-blue-300 transition-all duration-300 group"
@@ -224,7 +225,7 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                             <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-blue-600 transition-colors" />
                         </a>
                         <a
-                            href={countryData.maps.openStreetMaps}
+                            href={countryData.maps?.openStreetMaps}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200 hover:border-green-300 transition-all duration-300 group"
@@ -245,11 +246,13 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                     <SectionCard title="Coat of Arms">
                         <div className="flex justify-center">
                             <div className="p-8 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200">
-                                <img
+                                <Image
                                     src={countryData.coatOfArms.png}
                                     alt={`Coat of Arms of ${countryData.name.common}`}
                                     className="max-h-32 mx-auto"
                                     loading="lazy"
+                                    width={32}
+                                    height={32}
                                 />
                             </div>
                         </div>

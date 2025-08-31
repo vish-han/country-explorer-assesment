@@ -1,13 +1,86 @@
-import React from "react";
+'use client'
+import React, { useState, useEffect, useMemo } from "react";
 import Navbar from "@/components/ui/Navbar";
 import {CountryCard} from "@/components/ui/CountryCard";
-import {Globe} from "lucide-react";
+import {Globe, Loader2} from "lucide-react";
 import {CountriesAPI} from "@/lib/api";
+import {Country} from "@/types/CountryTypes";
+import Pagination from "@/components/ui/Pagination";
 
-export default async function CountrySearchPage() {
-    const countries=await CountriesAPI.getAllCountries();
+
+export default function CountrySearchPage() {
+    const [allCountries, setAllCountries] = useState<Country[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(12);
+
+    const [searchTerm, setSearchTerm] = useState("");
+
+    useEffect(() => {
+        const fetchCountries = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                const data = await CountriesAPI.getAllCountries();
+                setAllCountries(data);
+            } catch (err) {
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else if (typeof err === 'string') {
+                    setError(err);
+                } else {
+                    setError('An unexpected error occurred while fetching countries');
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCountries();
+    }, []);
+
+    // Filter countries based on search term
+    const filteredCountries = useMemo(() => {
+        if (!searchTerm.trim()) return allCountries;
+
+        return allCountries.filter(country =>
+            country.name.common.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            country.name.official?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            country.capital?.[0]?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            country.region?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }, [allCountries, searchTerm]);
+
+    // Calculate pagination
+    const totalPages = Math.ceil(filteredCountries.length / itemsPerPage);
+    const paginatedCountries = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return filteredCountries.slice(startIndex, endIndex);
+    }, [filteredCountries, currentPage, itemsPerPage]);
+
+    // Reset to first page when search term or items per page changes
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm, itemsPerPage]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+        // Smooth scroll to top when page changes
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleItemsPerPageChange = (newItemsPerPage: number) => {
+        setItemsPerPage(newItemsPerPage);
+    };
+
+    const handleRetry = () => {
+        window.location.reload();
+    };
+
     return (
-        <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-200 via-cyan-200 to-slate-300">
+        <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
             {/* Oceanic pattern background */}
             <div
                 className="absolute inset-0"
@@ -23,46 +96,103 @@ export default async function CountrySearchPage() {
                 }}
             />
 
-            {/* Navbar with integrated search */}
             <Navbar />
+
             {/* Main Content */}
             <div className="relative z-10 px-6 pb-12">
                 {/* Results Header */}
                 <div className="max-w-7xl mx-auto mb-8">
-                    <div className="text-center mb-2">
+                    <div className="text-center mb-6">
                         <h1 className="text-4xl font-bold text-slate-700 mb-2">
                             Discover <span className="text-orange-500">Amazing</span> Countries
                         </h1>
-                        <p className="text-lg text-slate-600">
-                            Found {countries.length} countries ready to explore
-                        </p>
+                        {loading ? (
+                            <div className="flex items-center justify-center gap-2">
+                                <Loader2 className="w-5 h-5 animate-spin text-slate-600" />
+                                <p className="text-lg text-slate-600">Loading countries...</p>
+                            </div>
+                        ) : (
+                            <p className="text-lg text-slate-600">
+                                Found {filteredCountries.length} countries ready to explore
+                            </p>
+                        )}
                     </div>
                 </div>
 
                 {/* Countries Grid */}
                 <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {loading ? (
+                        // Skeleton loaders
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            {Array.from({ length: 12 }).map((_, index) => (
+                                <div key={index} className="bg-white rounded-xl shadow-lg p-6 animate-pulse">
+                                    <div className="w-full h-32 bg-slate-200 rounded-lg mb-4"></div>
+                                    <div className="h-6 bg-slate-200 rounded mb-2"></div>
+                                    <div className="h-4 bg-slate-200 rounded w-3/4 mb-2"></div>
+                                    <div className="h-4 bg-slate-200 rounded w-1/2"></div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : error ? (
+                        // Error State
+                        <div className="text-center py-16">
+                            <Globe className="w-16 h-16 text-red-400 mx-auto mb-4" />
+                            <h3 className="text-2xl font-semibold text-slate-600 mb-2">Failed to load countries</h3>
+                            <p className="text-slate-500">{error}</p>
+                            <button
+                                onClick={handleRetry}
+                                className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                            >
+                                Try Again
+                            </button>
+                        </div>
+                    ) : filteredCountries.length === 0 ? (
+                        // Empty State
+                        <div className="text-center py-16">
+                            <Globe className="w-16 h-16 text-slate-400 mx-auto mb-4" />
+                            <h3 className="text-2xl font-semibold text-slate-600 mb-2">
+                                {searchTerm ? 'No countries match your search' : 'No countries found'}
+                            </h3>
+                            <p className="text-slate-500">
+                                {searchTerm ? 'Try different search terms' : 'Try adjusting your filters'}
+                            </p>
+                            {searchTerm && (
+                                <button
+                                    onClick={() => setSearchTerm('')}
+                                    className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                                >
+                                    Clear Search
+                                </button>
+                            )}
+                        </div>
+                    ) : (
+                        <>
+                            {/* Countries Grid */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+                                {paginatedCountries.map((country, index) => (
+                                    <CountryCard
+                                        key={`${country.cca3}-${index}`}
+                                        country={country}
+                                    />
+                                ))}
+                            </div>
 
-                        {countries.map((country, index) => (
-                            <CountryCard
-                                key={`${country.cca3}-${index}`}
-                                country={country}
-                            />
-                        ))}
-
-                        {/* Skeleton loaders for loading state */}
-                    </div>
-
+                            {/* Pagination */}
+                            {totalPages > 1 && (
+                                <div className="mt-8">
+                                    <Pagination
+                                        currentPage={currentPage}
+                                        totalPages={totalPages}
+                                        onPageChange={handlePageChange}
+                                        itemsPerPage={itemsPerPage}
+                                        totalItems={filteredCountries.length}
+                                        onItemsPerPageChange={handleItemsPerPageChange}
+                                    />
+                                </div>
+                            )}
+                        </>
+                    )}
                 </div>
-
-                {/* Empty State */}
-                {countries.length === 0 && (
-                    <div className="text-center py-16">
-                        <Globe className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-                        <h3 className="text-2xl font-semibold text-slate-600 mb-2">No countries found</h3>
-                        <p className="text-slate-500">Try adjusting your search terms</p>
-                    </div>
-                )}
             </div>
 
             {/* Floating decorative elements */}
