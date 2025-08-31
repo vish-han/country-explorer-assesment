@@ -7,7 +7,7 @@ export default function HomePage() {
         <div className="min-h-screen relative overflow-hidden">
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-20000 hover:scale-105"
-                style={{ backgroundImage: "url('/img/background_v2.png')" }}
+                style={{ backgroundImage: "url('/img/background_v2.webp')" }}
                 aria-hidden="true"
             />
 
