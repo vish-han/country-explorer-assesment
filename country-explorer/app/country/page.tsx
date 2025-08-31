@@ -1,43 +1,11 @@
-'use client'
-import {Country} from "@/types/CountryTypes";
-import React, {useState} from "react";
+import React from "react";
 import Navbar from "@/components/ui/Navbar";
 import {CountryCard} from "@/components/ui/CountryCard";
-import {SkeletonCard} from "@/components/ui/SkeletonCard";
-import {LoadMoreButton} from "@/components/ui/Loadmore";
 import {Globe} from "lucide-react";
-import {useCountries} from "@/hooks/useCountries";
+import {CountriesAPI} from "@/lib/api";
 
-export default function CountrySearchPage() {
-    const [country, setCountry] = useState<Country[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
-    const {countries}=useCountries()
-
-
-    // Initialize with mock data
-    React.useEffect(() => {
-        setCountry(countries);
-    }, []);
-
-    const handleCountryClick = (country: Country) => {
-        console.log('Navigate to country details:', country.name.common);
-        // Here you would implement navigation to country details page
-    };
-
-    const handleLoadMore = () => {
-        setLoading(true);
-        // Simulate API call
-        setTimeout(() => {
-            // In real implementation, you'd fetch more countries
-            setLoading(false);
-            setCurrentPage(prev => prev + 1);
-            // For demo purposes, we'll just show the same countries again
-            setCountry(prev => [...prev, ...countries.slice(0, 3)]);
-        }, 1000);
-    };
-
+export default async function CountrySearchPage() {
+    const countries=await CountriesAPI.getAllCountries();
     return (
         <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-200 via-cyan-200 to-slate-300">
             {/* Oceanic pattern background */}
@@ -57,7 +25,6 @@ export default function CountrySearchPage() {
 
             {/* Navbar with integrated search */}
             <Navbar />
-
             {/* Main Content */}
             <div className="relative z-10 px-6 pb-12">
                 {/* Results Header */}
@@ -80,24 +47,16 @@ export default function CountrySearchPage() {
                             <CountryCard
                                 key={`${country.cca3}-${index}`}
                                 country={country}
-                                onClick={() => handleCountryClick(country)}
                             />
                         ))}
 
                         {/* Skeleton loaders for loading state */}
-                        {loading && Array.from({ length: 4 }).map((_, index) => (
-                            <SkeletonCard key={`skeleton-${index}`} />
-                        ))}
                     </div>
 
-                    {/* Load More Button */}
-                    {hasMore && countries.length > 0 && (
-                        <LoadMoreButton onClick={handleLoadMore} loading={loading} />
-                    )}
                 </div>
 
                 {/* Empty State */}
-                {countries.length === 0 && !loading && (
+                {countries.length === 0 && (
                     <div className="text-center py-16">
                         <Globe className="w-16 h-16 text-slate-400 mx-auto mb-4" />
                         <h3 className="text-2xl font-semibold text-slate-600 mb-2">No countries found</h3>

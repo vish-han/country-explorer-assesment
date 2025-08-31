@@ -28,20 +28,20 @@ export function SearchBar({
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [error, setError] = useState<string | null>(null);
 
-    const debouncedQuery = useDebounced(query, 300);
+    const debouncedQuery = useDebounced(query, 500);
     const router = useRouter();
     const searchRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const suggestionsRef = useRef<HTMLDivElement>(null);
     const isCompact = variant === 'compact';
 
-    const results = useCountries();
+    const results = useCountries(debouncedQuery);
+    console.log(results);
 
     // Enhanced default suggestions with better variety
     const defaultSuggestions: Country[] = (results.countries || [])
         .filter(c =>
-            ["United States", "India", "China", "Brazil", "United Kingdom",
-                "Germany", "France", "Canada", "Japan", "Australia"]
+            [""]
                 .includes(c.name.common)
         );
 
@@ -189,7 +189,7 @@ export function SearchBar({
 
     const handleSearch = () => {
         if (query.trim()) {
-            router.push(`/countries?search=${encodeURIComponent(query.trim())}`);
+            router.push(`/countries/${encodeURIComponent(query.trim())}`);
             setIsOpen(false);
             setFocused(false);
         }
@@ -199,7 +199,7 @@ export function SearchBar({
         setQuery(country.name.common);
         setIsOpen(false);
         setSelectedIndex(-1);
-        router.push(`/country/${encodeURIComponent(country.name.common)}`);
+        router.push(`/countries/${encodeURIComponent(country.name.common)}`);
     };
 
     const clearSearch = () => {

@@ -1,7 +1,7 @@
 import {Country} from "@/types/CountryTypes";
 import {ChevronRight, DollarSign, Globe, MapPin, Users} from "lucide-react";
 
-export  const CountryCard = ({ country, onClick }: { country: Country; onClick: () => void }) => {
+export  const CountryCard = ({ country }: { country: Country; }) => {
 
     const getCurrencyDisplay = () => {
         if (!country.currencies) return 'Data not available';
@@ -21,7 +21,6 @@ export  const CountryCard = ({ country, onClick }: { country: Country; onClick: 
 
     return (
         <div
-            onClick={onClick}
             className="group bg-white/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-white/20 hover:border-orange-200 hover:-translate-y-2 overflow-hidden"
         >
             {/* Flag Section - Visually Prioritized */}
