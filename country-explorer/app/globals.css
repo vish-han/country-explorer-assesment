@@ -10,3 +10,20 @@
 body{
  font-family: var(--font-comfortaa);
 }
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@layer utilities {
+    .animate-fade-up {
+        animation: fade-up 700ms var(--ease-out, cubic-bezier(.2,.8,.2,1)) both;
+    }
+    .animate-fade-up-delay-1 {
+        animation: fade-up 700ms var(--ease-out, cubic-bezier(.2,.8,.2,1)) both 120ms;
+    }
+    .animate-fade-up-delay-2 {
+        animation: fade-up 700ms var(--ease-out, cubic-bezier(.2,.8,.2,1)) both 240ms;
+    }
+}
