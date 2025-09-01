@@ -2,11 +2,11 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter
 import Navbar from "@/components/ui/Navbar";
-import {CountryCard} from "@/components/ui/CountryCard";
+import {CountryCard} from "@/app/country/components/CountryCard";
 import {Globe, Loader2} from "lucide-react";
 import {CountriesAPI} from "@/lib/api";
 import {Country} from "@/types/CountryTypes";
-import Pagination from "@/components/ui/Pagination";
+import Pagination from "@/app/country/components/Pagination";
 
 export default function CountrySearchPage() {
     const router = useRouter(); // Initialize router
@@ -82,7 +82,6 @@ export default function CountrySearchPage() {
 
     return (
         <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-cyan-50 via-blue-50 to-purple-50">
-            {/* Oceanic pattern background */}
             <div
                 className="absolute inset-0"
                 style={{
@@ -120,7 +119,6 @@ export default function CountrySearchPage() {
                     </div>
                 </div>
 
-                {/* Countries Grid */}
                 <div className="max-w-7xl mx-auto">
                     {loading ? (
                         // Skeleton loaders
@@ -135,7 +133,6 @@ export default function CountrySearchPage() {
                             ))}
                         </div>
                     ) : error ? (
-                        // Error State
                         <div className="text-center py-16">
                             <Globe className="w-16 h-16 text-red-400 mx-auto mb-4" />
                             <h3 className="text-2xl font-semibold text-slate-600 mb-2">Failed to load countries</h3>
@@ -148,7 +145,6 @@ export default function CountrySearchPage() {
                             </button>
                         </div>
                     ) : filteredCountries.length === 0 ? (
-                        // Empty State
                         <div className="text-center py-16">
                             <Globe className="w-16 h-16 text-slate-400 mx-auto mb-4" />
                             <h3 className="text-2xl font-semibold text-slate-600 mb-2">
@@ -180,8 +176,6 @@ export default function CountrySearchPage() {
                                     </div>
                                 ))}
                             </div>
-
-                            {/* Pagination */}
                             {totalPages > 1 && (
                                 <div className="mt-8">
                                     <Pagination

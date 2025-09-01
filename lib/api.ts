@@ -1,5 +1,5 @@
 import {Country} from "@/types/CountryTypes";
-import {BASE_URL} from "@/lib/const";
+import {BASE_URL} from "@/constants/consts";
 
 export class CountriesAPI {
     static async searchCountries(query: string): Promise<Country[]> {

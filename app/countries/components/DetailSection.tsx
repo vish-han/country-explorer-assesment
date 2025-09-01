@@ -9,9 +9,7 @@ import Image from "next/image";
 const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country,getBorders:()=>string}) => {
     return (
         <>
-            {/* Main Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Geography & Location */}
                 <SectionCard title="Geography & Location">
                     <div className="space-y-4">
                         <div className="flex justify-between items-center py-3 border-b border-slate-100">
@@ -51,7 +49,6 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                     </div>
                 </SectionCard>
 
-                {/* Government & Administration */}
                 <SectionCard title="Government & Administration">
                     <div className="space-y-4">
                         <div className="flex justify-between items-center py-3 border-b border-slate-100">
@@ -85,7 +82,6 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                     </div>
                 </SectionCard>
 
-                {/* Communication & Codes */}
                 <SectionCard title="Communication & Codes">
                     <div className="space-y-4">
                         <div className="flex justify-between items-center py-3 border-b border-slate-100">
@@ -123,7 +119,6 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                     </div>
                 </SectionCard>
 
-                {/* Culture & Society */}
                 <SectionCard title="Culture & Society">
                     <div className="space-y-4">
                         <div className="py-3 border-b border-slate-100">
@@ -157,8 +152,6 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                     </div>
                 </SectionCard>
             </div>
-
-            {/* Alternative Names Section */}
             {countryData.altSpellings && countryData.altSpellings.length > 0 && (
                 <div className="mt-8">
                     <SectionCard title="Alternative Names & Spellings">
@@ -208,7 +201,6 @@ const CountryDetailsSections = ({ countryData, getBorders }:{countryData:Country
                 </div>
             )}
 
-            {/* External Links */}
             <div className="mt-8">
                 <SectionCard title="Explore Further">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
