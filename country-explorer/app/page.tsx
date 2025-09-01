@@ -7,7 +7,7 @@ export default function HomePage() {
         <div className="min-h-screen relative overflow-hidden">
             {/* Background Image with Next.js Image optimization */}
             <Image
-                src="/img/background_v2.webp"
+                src="/img/background_v3.png"
                 alt=""
                 width={1920}
                 height={1080}
