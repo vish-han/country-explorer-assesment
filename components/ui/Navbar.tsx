@@ -17,7 +17,6 @@ export default function Navbar() {
     const [searchModalOpen, setSearchModalOpen] = useState(false);
 
     const isActive = (href: string) => pathname === href;
-    // Fixed: Check if pathname starts with '/countries/' to catch dynamic routes
     const isCountryPage = pathname === '/country' || pathname.startsWith('/countries/');
 
     return (
@@ -54,15 +53,6 @@ export default function Navbar() {
                             }`} />
                         </Link>
                     ))}
-
-                    {/* Search Modal Trigger */}
-                    <button
-                        onClick={() => setSearchModalOpen(true)}
-                        className="relative px-4 py-2 transition-all duration-300 group text-black/80 hover:text-orange-500"
-                        aria-label="Open search"
-                    >
-                        <Search className="w-5 h-5" />
-                    </button>
                 </nav>
 
                 {/* Fixed Hamburger Menu Button */}
