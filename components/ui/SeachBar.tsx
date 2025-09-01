@@ -297,7 +297,7 @@ export function SearchBar({
                         >
                             {!debouncedQuery.trim() && (
                                 <div className="px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm text-gray-500 bg-orange-50/50 border-b border-gray-100/50">
-                                    💡 Popular destinations • Try typing a country, capital, or region
+                                    💡 Popular destinations • Try typing a country that you wanna explore
                                 </div>
                             )}
 
