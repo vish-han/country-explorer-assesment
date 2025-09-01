@@ -17,6 +17,34 @@ Country Explorer is a responsive, accessible, and visually appealing web applica
 
 ***
 
+## ⚡ Performance & Optimization
+
+Country Explorer is built with performance as a core priority, achieving exceptional metrics across all key areas:
+
+### **PageSpeed Insights Scores**
+- **🚀 Performance:** 100/100
+- **♿ Accessibility:** 94/100
+- **✅ Best Practices:** 100/100
+- **🔍 SEO:** 100/100
+
+*Last updated: September 1, 2025*
+
+### **Performance Optimizations**
+- **Debounced search** to minimize API calls and improve user experience
+- **Lazy loading** for images and content to reduce initial load time
+- **Efficient state management** to prevent unnecessary re-renders
+- **Optimized bundle size** with code splitting and tree shaking
+- **Image optimization** with proper sizing and modern formats
+- **CSS optimization** with component-scoped styling and minimal unused code
+
+### **Technical Excellence**
+- **100% Performance Score** indicates optimal loading speeds and smooth user interactions
+- **Near-perfect Accessibility** (94/100) ensuring the app is usable by everyone
+- **Perfect Best Practices** compliance following web standards and security guidelines
+- **Complete SEO optimization** for maximum discoverability
+
+***
+
 ## 🛠️ Technologies
 
 - **React/Next.js** with modern hooks and state management
@@ -147,7 +175,6 @@ This application integrates with the **REST Countries API** (`https://restcountr
 
 ***
 
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
@@ -176,7 +203,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 **Built with ❤️ by [Vishal Chauhan]** | [GitHub](https://github.com/vish-han) | [LinkedIn](#)
 
-[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/81190653/b5dafc99-3528-4c82-a363-78ab27ee4f75/image.jpg)
-[2](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/81190653/871749aa-83e5-438b-9bf2-1574300e4df8/image.jpg)
-[3](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/81190653/395a1108-2ca9-46d3-802a-04cc627b3225/image.jpg)
-[4](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/81190653/041b31af-f041-47d9-aa82-3f03e2b3b5b2/image.jpg)
+[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/81190653/69dc178e-e5a5-4ddc-a9c4-d056831237b5/image.jpg)
