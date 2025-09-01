@@ -45,19 +45,27 @@ export function SearchBar({
         const normalize = (s: string) => s.toLowerCase().replace(/[^\w\s]/g, '');
         const s = normalize(str);
         const nq = normalize(q);
+
+        // Exact substring match first
         if (s.includes(nq)) return true;
+
         const words = nq.split(' ');
         return words.every((w) => {
             if (w.length <= 2) return s.includes(w);
+
             for (let i = 0; i <= s.length - w.length; i++) {
-                const substr = s.substr(i, w.length);
+                const substr = s.substring(i, i + w.length); // FIXED: changed from substr
                 let diff = 0;
-                for (let j = 0; j < w.length; j++) if (substr[j] !== w[j]) diff++;
-                if (diff <= 1) return true;
+                for (let j = 0; j < w.length; j++) {
+                    if (substr[j] !== w[j]) diff++;
+                }
+                if (diff <= 2) return true; // FIXED: increased from 1 to 2
             }
             return false;
         });
     };
+
+
 
     useEffect(() => {
         const fetchSuggestions = async () => {

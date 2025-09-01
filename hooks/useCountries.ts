@@ -30,7 +30,6 @@ export function useCountries(debouncedQuery?: string,countryName?:string, option
                 switch (mode) {
                     case 'search':
                     default:
-                        // For search functionality
                         if (!debouncedQuery?.trim()) {
                             results = []
                         } else {
