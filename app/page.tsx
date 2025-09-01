@@ -92,7 +92,7 @@ export default function HomePage() {
                             >
                                 <SearchBar
                                     className="w-full"
-                                    placeholder="Search countries, capitals, regions..."
+                                    placeholder="Search countries that you wanna explore..."
                                 />
                             </div>
 

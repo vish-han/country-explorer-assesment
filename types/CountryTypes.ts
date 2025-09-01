@@ -19,8 +19,8 @@ export interface Country {
     unMember: boolean;
     currencies?: {
         [key: string]: {
-            symbol: string;
             name: string;
+            symbol: string;
         };
     };
     idd?: {
@@ -85,7 +85,4 @@ export interface Country {
     };
 }
 
-export interface SearchSuggestion {
-    name: string;
-    flag: string;
-}
+export type SearchSuggestion = Country;

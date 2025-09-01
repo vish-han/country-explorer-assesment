@@ -20,7 +20,7 @@ export function SearchBar({
                               variant = 'default',
                               initialValue = '',
                               className = '',
-                              placeholder = 'Search countries, capitals, regions...',
+                              placeholder = 'Search countries that you wanna explore...',
                           }: SearchBarProps) {
     const [query, setQuery] = useState(initialValue);
     const [suggestions, setSuggestions] = useState<Country[]>([]);
@@ -39,7 +39,6 @@ export function SearchBar({
 
     const results = useCountries(debouncedQuery);
 
-    // Use static popular countries instead of making API calls
     const defaultSuggestions: Country[] = POPULAR_COUNTRIES;
 
     const fuzzyMatch = (str: string, q: string): boolean => {
@@ -138,7 +137,6 @@ export function SearchBar({
 
     return (
         <div ref={searchRef} className={`relative w-full ${className}`} role="combobox" aria-expanded={isOpen}>
-            {/* Bar shell constrained and centered */}
             <div
                 className={`
           relative flex items-center group transition-all duration-300 w-full
@@ -220,7 +218,6 @@ export function SearchBar({
                     spellCheck="false"
                 />
 
-                {/* Clear */}
                 {query && (
                     <button
                         onClick={clearSearch}
@@ -232,14 +229,12 @@ export function SearchBar({
                     </button>
                 )}
 
-                {/* Loading */}
                 {loading && (
                     <div className="mr-2 sm:mr-4 flex-shrink-0">
                         <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 animate-spin" />
                     </div>
                 )}
 
-                {/* Submit */}
                 <button
                     onClick={handleSearch}
                     disabled={loading}
@@ -259,7 +254,6 @@ export function SearchBar({
                 </button>
             </div>
 
-            {/* Dropdown aligned to bar; shows ~3 items and scrolls */}
             {isOpen && (suggestions.length > 0 || loading || error) && (
                 <div
                     className="

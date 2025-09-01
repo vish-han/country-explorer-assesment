@@ -1,11 +1,17 @@
 // constants/popularCountries.ts
 
-export const POPULAR_COUNTRIES = [
+import { Country } from '@/types/CountryTypes';
+
+export const POPULAR_COUNTRIES: Country[] = [
     {
         name: {
             common: "United States",
             official: "United States of America"
         },
+        cca2: "US",
+        cca3: "USA",
+        status: "officially-assigned",
+        unMember: true,
         flags: {
             png: "https://flagcdn.com/w320/us.png",
             svg: "https://flagcdn.com/us.svg",
@@ -20,13 +26,22 @@ export const POPULAR_COUNTRIES = [
             }
         },
         population: 329484123,
-        cca3: "USA"
+        latlng: [38.0, -97.0],
+        landlocked: false,
+        area: 9372610,
+        timezones: ["UTC-12:00", "UTC-11:00", "UTC-10:00", "UTC-09:00", "UTC-08:00", "UTC-07:00", "UTC-06:00", "UTC-05:00", "UTC-04:00", "UTC+10:00", "UTC+12:00"],
+        subregion: "North America",
+        continents: ["North America"]
     },
     {
         name: {
             common: "India",
             official: "Republic of India"
         },
+        cca2: "IN",
+        cca3: "IND",
+        status: "officially-assigned",
+        unMember: true,
         flags: {
             png: "https://flagcdn.com/w320/in.png",
             svg: "https://flagcdn.com/in.svg",
@@ -41,13 +56,22 @@ export const POPULAR_COUNTRIES = [
             }
         },
         population: 1380004385,
-        cca3: "IND"
+        latlng: [20.0, 77.0],
+        landlocked: false,
+        area: 3287263,
+        timezones: ["UTC+05:30"],
+        subregion: "Southern Asia",
+        continents: ["Asia"]
     },
     {
         name: {
             common: "China",
             official: "People's Republic of China"
         },
+        cca2: "CN",
+        cca3: "CHN",
+        status: "officially-assigned",
+        unMember: true,
         flags: {
             png: "https://flagcdn.com/w320/cn.png",
             svg: "https://flagcdn.com/cn.svg",
@@ -62,13 +86,22 @@ export const POPULAR_COUNTRIES = [
             }
         },
         population: 1439323776,
-        cca3: "CHN"
+        latlng: [35.0, 105.0],
+        landlocked: false,
+        area: 9596961,
+        timezones: ["UTC+08:00"],
+        subregion: "Eastern Asia",
+        continents: ["Asia"]
     },
     {
         name: {
             common: "Brazil",
             official: "Federative Republic of Brazil"
         },
+        cca2: "BR",
+        cca3: "BRA",
+        status: "officially-assigned",
+        unMember: true,
         flags: {
             png: "https://flagcdn.com/w320/br.png",
             svg: "https://flagcdn.com/br.svg",
@@ -83,13 +116,22 @@ export const POPULAR_COUNTRIES = [
             }
         },
         population: 212559409,
-        cca3: "BRA"
+        latlng: [-10.0, -55.0],
+        landlocked: false,
+        area: 8515767,
+        timezones: ["UTC-05:00", "UTC-04:00", "UTC-03:00", "UTC-02:00"],
+        subregion: "South America",
+        continents: ["South America"]
     },
     {
         name: {
             common: "United Kingdom",
             official: "United Kingdom of Great Britain and Northern Ireland"
         },
+        cca2: "GB",
+        cca3: "GBR",
+        status: "officially-assigned",
+        unMember: true,
         flags: {
             png: "https://flagcdn.com/w320/gb.png",
             svg: "https://flagcdn.com/gb.svg",
@@ -104,13 +146,22 @@ export const POPULAR_COUNTRIES = [
             }
         },
         population: 67886004,
-        cca3: "GBR"
+        latlng: [54.0, -2.0],
+        landlocked: false,
+        area: 242495,
+        timezones: ["UTC-08:00", "UTC-05:00", "UTC-04:00", "UTC-03:00", "UTC-02:00", "UTC+00:00", "UTC+01:00", "UTC+06:00"],
+        subregion: "Northern Europe",
+        continents: ["Europe"]
     },
     {
         name: {
             common: "Germany",
             official: "Federal Republic of Germany"
         },
+        cca2: "DE",
+        cca3: "DEU",
+        status: "officially-assigned",
+        unMember: true,
         flags: {
             png: "https://flagcdn.com/w320/de.png",
             svg: "https://flagcdn.com/de.svg",
@@ -125,13 +176,22 @@ export const POPULAR_COUNTRIES = [
             }
         },
         population: 83240525,
-        cca3: "DEU"
+        latlng: [51.0, 9.0],
+        landlocked: false,
+        area: 357114,
+        timezones: ["UTC+01:00"],
+        subregion: "Western Europe",
+        continents: ["Europe"]
     },
     {
         name: {
             common: "France",
             official: "French Republic"
         },
+        cca2: "FR",
+        cca3: "FRA",
+        status: "officially-assigned",
+        unMember: true,
         flags: {
             png: "https://flagcdn.com/w320/fr.png",
             svg: "https://flagcdn.com/fr.svg",
@@ -146,13 +206,22 @@ export const POPULAR_COUNTRIES = [
             }
         },
         population: 67391582,
-        cca3: "FRA"
+        latlng: [46.0, 2.0],
+        landlocked: false,
+        area: 551695,
+        timezones: ["UTC-10:00", "UTC-09:30", "UTC-09:00", "UTC-08:00", "UTC-04:00", "UTC-03:00", "UTC+01:00", "UTC+03:00", "UTC+04:00", "UTC+05:00", "UTC+11:00", "UTC+12:00"],
+        subregion: "Western Europe",
+        continents: ["Europe"]
     },
     {
         name: {
             common: "Japan",
             official: "Japan"
         },
+        cca2: "JP",
+        cca3: "JPN",
+        status: "officially-assigned",
+        unMember: true,
         flags: {
             png: "https://flagcdn.com/w320/jp.png",
             svg: "https://flagcdn.com/jp.svg",
@@ -167,6 +236,11 @@ export const POPULAR_COUNTRIES = [
             }
         },
         population: 125836021,
-        cca3: "JPN"
+        latlng: [36.0, 138.0],
+        landlocked: false,
+        area: 377930,
+        timezones: ["UTC+09:00"],
+        subregion: "Eastern Asia",
+        continents: ["Asia"]
     }
 ];

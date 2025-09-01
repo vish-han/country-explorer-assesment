@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
 import Navbar from "@/components/ui/Navbar";
 import {CountryCard} from "@/components/ui/CountryCard";
 import {Globe, Loader2} from "lucide-react";
@@ -7,14 +8,13 @@ import {CountriesAPI} from "@/lib/api";
 import {Country} from "@/types/CountryTypes";
 import Pagination from "@/components/ui/Pagination";
 
-
 export default function CountrySearchPage() {
+    const router = useRouter(); // Initialize router
     const [allCountries, setAllCountries] = useState<Country[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(12);
-
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
@@ -40,7 +40,6 @@ export default function CountrySearchPage() {
         fetchCountries();
     }, []);
 
-    // Filter countries based on search term
     const filteredCountries = useMemo(() => {
         if (!searchTerm.trim()) return allCountries;
 
@@ -52,7 +51,6 @@ export default function CountrySearchPage() {
         );
     }, [allCountries, searchTerm]);
 
-    // Calculate pagination
     const totalPages = Math.ceil(filteredCountries.length / itemsPerPage);
     const paginatedCountries = useMemo(() => {
         const startIndex = (currentPage - 1) * itemsPerPage;
@@ -60,14 +58,12 @@ export default function CountrySearchPage() {
         return filteredCountries.slice(startIndex, endIndex);
     }, [filteredCountries, currentPage, itemsPerPage]);
 
-    // Reset to first page when search term or items per page changes
     useEffect(() => {
         setCurrentPage(1);
     }, [searchTerm, itemsPerPage]);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
-        // Smooth scroll to top when page changes
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
@@ -77,6 +73,11 @@ export default function CountrySearchPage() {
 
     const handleRetry = () => {
         window.location.reload();
+    };
+
+    const handleCountryClick = (country: Country) => {
+        const countryName = encodeURIComponent(country.name.common);
+        router.push(`/countries/${countryName}`);
     };
 
     return (
@@ -170,10 +171,13 @@ export default function CountrySearchPage() {
                             {/* Countries Grid */}
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
                                 {paginatedCountries.map((country, index) => (
-                                    <CountryCard
+                                    <div
                                         key={`${country.cca3}-${index}`}
-                                        country={country}
-                                    />
+                                        onClick={() => handleCountryClick(country)}
+                                        className="cursor-pointer transform transition-transform hover:scale-105"
+                                    >
+                                        <CountryCard country={country} />
+                                    </div>
                                 ))}
                             </div>
 
