@@ -109,7 +109,7 @@ export default function Navbar() {
                     </Link>
 
                     <Link
-                        href="/country"
+                        href="/explore"
                         className={`p-3 rounded-xl hover:bg-white/20 transition-all duration-300 group ${
                             isActive('/explore') ? 'bg-white/25' : ''
                         }`}
