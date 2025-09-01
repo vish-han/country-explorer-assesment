@@ -7,7 +7,7 @@ export default function HomePage() {
         <div className="min-h-screen relative">
             {/* Background */}
             <Image
-                src="/img/background_v3.png"
+                src="/img/background_v3.webp"
                 alt=""
                 width={1920}
                 height={1080}
