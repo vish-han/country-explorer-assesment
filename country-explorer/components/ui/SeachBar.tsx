@@ -42,7 +42,7 @@ export function SearchBar({
     // Enhanced default suggestions with better variety
     const defaultSuggestions: Country[] = (results.countries || [])
         .filter(c =>
-            [""]
+            ["United States", "United Kingdom", "Canada", "Australia", "Germany", "France", "Japan", "Brazil"]
                 .includes(c.name.common)
         );
 
@@ -89,7 +89,6 @@ export function SearchBar({
                     const searchTerms = [
                         country.name.common,
                         country.name.official,
-                        // ...(country.name.common ? Object.values(country.name.common).map((n: any) => n.common) : []),
                         country.region,
                         ...(country.capital || []),
                     ].filter(Boolean);
@@ -178,6 +177,7 @@ export function SearchBar({
                 break;
         }
     };
+
     useEffect(() => {
         if (selectedIndex >= 0 && suggestionsRef.current) {
             const selectedElement = suggestionsRef.current.children[selectedIndex] as HTMLElement;
@@ -211,19 +211,20 @@ export function SearchBar({
     };
 
     return (
-        <div ref={searchRef} className={`relative ${className}`} role="combobox" aria-expanded={isOpen}>
+        <div ref={searchRef} className={`relative w-full ${className}`} role="combobox" aria-expanded={isOpen}>
             {/* Main Search Input */}
             <div className={`
-                relative flex items-center group transition-all duration-300
+                relative flex items-center group transition-all duration-300 w-full
                 ${isCompact
-                ? 'bg-white/95 backdrop-blur-md rounded-xl shadow-lg h-14 hover:shadow-xl'
-                : `bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl h-18 border border-white/20 hover:border-white/40 hover:shadow-3xl
-                       ${focused ? 'ring-4 ring-orange-400/30 border-orange-300/50 scale-[1.02]' : ''}`
+                ? 'bg-white/95 backdrop-blur-md rounded-xl shadow-lg h-12 sm:h-14 hover:shadow-xl'
+                : `bg-white/95 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl 
+                       h-14 sm:h-16 md:h-18 border border-white/20 hover:border-white/40 hover:shadow-2xl sm:hover:shadow-3xl
+                       ${focused ? 'ring-2 sm:ring-4 ring-orange-400/30 border-orange-300/50 scale-[1.01] sm:scale-[1.02]' : ''}`
             }
             `}>
                 {/* Navigation Logo */}
-                <div className={`flex items-center justify-center text-orange-500 transition-colors duration-300 ${isCompact ? 'pl-4' : 'pl-6'}`}>
-                    <Compass className={`${isCompact ? 'w-6 h-6' : 'w-7 h-7'}`} />
+                <div className={`flex items-center justify-center text-orange-500 transition-colors duration-300 flex-shrink-0 ${isCompact ? 'pl-3 sm:pl-4' : 'pl-4 sm:pl-6'}`}>
+                    <Compass className={`${isCompact ? 'w-5 h-5 sm:w-6 sm:h-6' : 'w-6 h-6 sm:w-7 sm:h-7'}`} />
                 </div>
 
                 {/* Input Field */}
@@ -244,8 +245,8 @@ export function SearchBar({
                     placeholder={placeholder}
                     className={`
                         flex-1 bg-transparent border-0 outline-none text-gray-700 placeholder-gray-400/70
-                        font-medium transition-all duration-300
-                        ${isCompact ? 'text-base py-4 px-4' : 'text-lg py-5 px-6'}
+                        font-medium transition-all duration-300 min-w-0
+                        ${isCompact ? 'text-sm sm:text-base py-3 sm:py-4 px-3 sm:px-4' : 'text-base sm:text-lg py-4 sm:py-5 px-4 sm:px-6'}
                         ${focused ? 'placeholder-orange-400/50' : ''}
                     `}
                     aria-label="Search countries, capitals, or regions"
@@ -259,66 +260,66 @@ export function SearchBar({
                 {query && (
                     <button
                         onClick={clearSearch}
-                        className="mr-2 p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200 rounded-lg hover:bg-gray-100/50"
+                        className="mr-1 sm:mr-2 p-1.5 sm:p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200 rounded-lg hover:bg-gray-100/50 flex-shrink-0"
                         aria-label="Clear search"
                         type="button"
                     >
-                        <X className="w-4 h-4" />
+                        <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </button>
                 )}
 
                 {/* Loading Indicator */}
                 {loading && (
-                    <div className="mr-4">
-                        <Loader2 className="w-5 h-5 text-orange-500 animate-spin" />
+                    <div className="mr-2 sm:mr-4 flex-shrink-0">
+                        <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 animate-spin" />
                     </div>
                 )}
 
-                {/* Search Button with Coral/Salmon Color */}
+                {/* Search Button */}
                 <button
                     onClick={handleSearch}
                     disabled={loading}
                     className={`
                         flex items-center justify-center bg-gradient-to-r from-orange-400 to-orange-500
                         hover:from-orange-500 hover:to-orange-600 focus:from-orange-500 focus:to-orange-600
-                        focus:ring-4 focus:ring-orange-400/30 disabled:from-gray-300 disabled:to-gray-400
-                        text-white rounded-xl transition-all duration-300 mr-2 
-                        hover:scale-105 shadow-lg hover:shadow-xl active:scale-95
-                        ${isCompact ? 'w-10 h-10' : 'w-14 h-14'}
+                        focus:ring-2 sm:focus:ring-4 focus:ring-orange-400/30 disabled:from-gray-300 disabled:to-gray-400
+                        text-white rounded-lg sm:rounded-xl transition-all duration-300 mr-1.5 sm:mr-2 flex-shrink-0
+                        hover:scale-105 shadow-md sm:shadow-lg hover:shadow-lg sm:hover:shadow-xl active:scale-95
+                        ${isCompact ? 'w-8 h-8 sm:w-10 sm:h-10' : 'w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14'}
                         ${loading ? 'cursor-not-allowed' : 'cursor-pointer'}
                     `}
                     aria-label="Search"
                     type="button"
                 >
-                    <Search className={`${isCompact ? 'w-4 h-4' : 'w-5 h-5'}`} />
+                    <Search className={`${isCompact ? 'w-3.5 h-3.5 sm:w-4 sm:h-4' : 'w-4 h-4 sm:w-5 sm:h-5'}`} />
                 </button>
             </div>
 
             {/* Enhanced Suggestions Dropdown */}
             {isOpen && (suggestions.length > 0 || loading || error) && (
                 <div
-                    className="absolute top-full left-0 right-0 mt-3 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 max-h-96 overflow-hidden z-50 animate-in slide-in-from-top-2 duration-200"
+                    className="absolute top-full left-0 right-0 mt-2 sm:mt-3 bg-white/95 backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl border border-white/20 max-h-80 sm:max-h-96 overflow-hidden z-50 animate-in slide-in-from-top-2 duration-200"
                     role="listbox"
                     id="suggestions-list"
                 >
                     {loading ? (
-                        <div className="p-6 text-center text-gray-500 flex items-center justify-center gap-3">
-                            <Loader2 className="w-5 h-5 animate-spin text-orange-500" />
-                            <span className="font-medium">Exploring the globe...</span>
+                        <div className="p-4 sm:p-6 text-center text-gray-500 flex items-center justify-center gap-2 sm:gap-3">
+                            <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin text-orange-500" />
+                            <span className="font-medium text-sm sm:text-base">Exploring the globe...</span>
                         </div>
                     ) : error ? (
-                        <div className="p-6 text-center">
-                            <div className="text-amber-600 font-medium mb-2">🌍 No matches found</div>
-                            <div className="text-sm text-gray-500">{error}</div>
+                        <div className="p-4 sm:p-6 text-center">
+                            <div className="text-amber-600 font-medium mb-2 text-sm sm:text-base">🌍 No matches found</div>
+                            <div className="text-xs sm:text-sm text-gray-500">{error}</div>
                         </div>
                     ) : (
                         <div
                             ref={suggestionsRef}
-                            className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-orange-200 scrollbar-track-transparent"
+                            className="max-h-80 sm:max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-orange-200 scrollbar-track-transparent"
                         >
                             {/* Search hint */}
                             {!debouncedQuery.trim() && (
-                                <div className="px-6 py-3 text-sm text-gray-500 bg-orange-50/50 border-b border-gray-100/50">
+                                <div className="px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm text-gray-500 bg-orange-50/50 border-b border-gray-100/50">
                                     💡 Popular destinations • Try typing a country, capital, or region
                                 </div>
                             )}
@@ -328,7 +329,7 @@ export function SearchBar({
                                     key={index}
                                     onClick={() => selectSuggestion(country)}
                                     className={`
-                                        w-full px-6 py-4 text-left flex items-center gap-4 
+                                        w-full px-4 sm:px-6 py-3 sm:py-4 text-left flex items-center gap-3 sm:gap-4 
                                         border-b border-gray-100/50 last:border-b-0 
                                         transition-all duration-200 group
                                         ${selectedIndex === index
@@ -346,46 +347,53 @@ export function SearchBar({
                                             src={country.flags.png}
                                             alt={country.flags.alt || `${country.name.common} flag`}
                                             className={`
-                                                w-12 h-8 object-cover rounded-md shadow-md border border-gray-200/50
+                                                w-8 h-6 sm:w-12 sm:h-8 object-cover rounded shadow-sm sm:shadow-md border border-gray-200/50
                                                 transition-all duration-200
-                                                ${selectedIndex === index ? 'shadow-lg scale-105' : 'group-hover:shadow-lg group-hover:scale-105'}
+                                                ${selectedIndex === index ? 'shadow-md sm:shadow-lg scale-105' : 'group-hover:shadow-md sm:group-hover:shadow-lg group-hover:scale-105'}
                                             `}
                                             loading="lazy"
                                             width={32}
-                                            height={32}
+                                            height={24}
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/10 rounded-md" />
+                                        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/10 rounded" />
                                     </div>
 
                                     {/* Enhanced Country Info */}
                                     <div className="flex-1 min-w-0">
                                         <div className={`
-                                            font-semibold text-gray-900 flex items-center gap-2 mb-1
-                                            transition-colors duration-200 truncate
+                                            font-semibold text-gray-900 flex items-center gap-1 sm:gap-2 mb-0.5 sm:mb-1
+                                            transition-colors duration-200 truncate text-sm sm:text-base
                                             ${selectedIndex === index ? 'text-orange-700' : 'group-hover:text-orange-700'}
                                         `}>
-                                            {country.name.common}
+                                            <span className="truncate">{country.name.common}</span>
                                             <Globe className={`
-                                                w-3 h-3 text-gray-400 transition-all duration-200 flex-shrink-0
+                                                w-2.5 h-2.5 sm:w-3 sm:h-3 text-gray-400 transition-all duration-200 flex-shrink-0
                                                 ${selectedIndex === index ? 'opacity-100 text-orange-500' : 'opacity-0 group-hover:opacity-100'}
                                             `} />
                                         </div>
 
-                                        <div className="flex items-center gap-3 text-sm">
-                                            <span className="text-gray-500 font-medium">{country.region}</span>
+                                        <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+                                            <span className="text-gray-500 font-medium truncate">{country.region}</span>
                                             {country.capital && (
                                                 <>
-                                                    <span className="text-gray-300">•</span>
-                                                    <span className="text-gray-400 truncate">
+                                                    <span className="text-gray-300 hidden sm:inline">•</span>
+                                                    <span className="text-gray-400 truncate hidden sm:inline">
                                                         Capital: {country.capital[0]}
                                                     </span>
                                                 </>
                                             )}
                                         </div>
 
-                                        {/* Additional info on hover/selection */}
+                                        {/* Mobile-friendly capital display */}
+                                        {country.capital && (
+                                            <div className="text-xs text-gray-400 mt-0.5 truncate sm:hidden">
+                                                Capital: {country.capital[0]}
+                                            </div>
+                                        )}
+
+                                        {/* Additional info on hover/selection - hidden on mobile */}
                                         {(selectedIndex === index) && country.population && (
-                                            <div className="text-xs text-orange-600 mt-1">
+                                            <div className="text-xs text-orange-600 mt-1 hidden sm:block">
                                                 Population: {country.population.toLocaleString()}
                                             </div>
                                         )}
@@ -394,9 +402,9 @@ export function SearchBar({
                                     {/* Enhanced Hover Arrow */}
                                     <div className={`
                                         transition-all duration-200 flex-shrink-0
-                                        ${selectedIndex === index ? 'opacity-100 translate-x-1' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-1'}
+                                        ${selectedIndex === index ? 'opacity-100 translate-x-0.5 sm:translate-x-1' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 sm:group-hover:translate-x-1'}
                                     `}>
-                                        <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                         </svg>
                                     </div>
