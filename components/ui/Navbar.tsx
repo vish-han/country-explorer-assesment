@@ -8,7 +8,7 @@ import {SearchBar} from '@/components/ui/SeachBar';
 
 const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'Explore', href: '/country' },
+    { label: 'Explore', href: '/explore' },
 ];
 
 export default function Navbar() {
@@ -17,7 +17,7 @@ export default function Navbar() {
     const [searchModalOpen, setSearchModalOpen] = useState(false);
 
     const isActive = (href: string) => pathname === href;
-    const isCountryPage = pathname === '/country' || pathname.startsWith('/countries/');
+    const isCountryPage = pathname === '/explore' || pathname.startsWith('/countries/');
 
     return (
         <>
@@ -31,7 +31,7 @@ export default function Navbar() {
                     </span>
                 </Link>
 
-                {/* Conditionally render SearchBar on country page - centered and wider */}
+                {/* Conditionally render SearchBar on explore page - centered and wider */}
                 {isCountryPage && (
                     <div className="hidden md:block flex-1 max-w-2xl mx-auto px-8">
                         <SearchBar />
@@ -111,7 +111,7 @@ export default function Navbar() {
                     <Link
                         href="/country"
                         className={`p-3 rounded-xl hover:bg-white/20 transition-all duration-300 group ${
-                            isActive('/country') ? 'bg-white/25' : ''
+                            isActive('/explore') ? 'bg-white/25' : ''
                         }`}
                         aria-label="Explore"
                     >

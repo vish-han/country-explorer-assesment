@@ -10,7 +10,7 @@ import {Metadata} from "next";
 
 export const metadata: Metadata = {
     title: "Country Explorer",
-    description: "This is the Website for explorling every country that is present on the earth",
+    description: "This is the Website for explorling every explore that is present on the earth",
     metadataBase: new URL("https://country-explorer-assesment.vercel.app/"),
 };
 

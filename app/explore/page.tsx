@@ -2,11 +2,11 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter
 import Navbar from "@/components/ui/Navbar";
-import {CountryCard} from "@/app/country/components/CountryCard";
+import {CountryCard} from "@/app/explore/components/CountryCard";
 import {Globe, Loader2} from "lucide-react";
 import {CountriesAPI} from "@/lib/api";
 import {Country} from "@/types/CountryTypes";
-import Pagination from "@/app/country/components/Pagination";
+import Pagination from "@/app/explore/components/Pagination";
 
 export default function CountrySearchPage() {
     const router = useRouter(); // Initialize router

@@ -1,4 +1,4 @@
-// app/country/[country]/error.js
+// app/explore/[explore]/error.js
 'use client'
 export default function Error() {
     return (

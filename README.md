@@ -22,9 +22,9 @@ Country Explorer is a responsive, accessible, and visually appealing web applica
 Country Explorer is built with performance as a core priority, achieving exceptional metrics across all key areas:
 
 ### **PageSpeed Insights Scores**
-- **🚀 Performance:** 100/100
+- **🚀 Performance:** 99/100
 - **♿ Accessibility:** 94/100
-- **✅ Best Practices:** 100/100
+- **✅ Best Practices:** 99/100
 - **🔍 SEO:** 100/100
 
 *Last updated: September 1, 2025*
@@ -37,21 +37,36 @@ Country Explorer is built with performance as a core priority, achieving excepti
 - **Image optimization** with proper sizing and modern formats
 - **CSS optimization** with component-scoped styling and minimal unused code
 
-### **Technical Excellence**
-- **100% Performance Score** indicates optimal loading speeds and smooth user interactions
-- **Near-perfect Accessibility** (94/100) ensuring the app is usable by everyone
-- **Perfect Best Practices** compliance following web standards and security guidelines
-- **Complete SEO optimization** for maximum discoverability
-
-***
 
 ## 🛠️ Technologies
 
-- **React/Next.js** with modern hooks and state management
+- **React/Next.js 14+** with App Router and modern hooks
 - **REST Countries API** for dynamic, real-time country data
 - **CSS Modules/Styled Components** for component-scoped styling
 - **Vercel** for seamless deployment and hosting
 - **TypeScript** for type safety and better developer experience
+
+***
+
+## 🏗️ Architecture & Rendering Strategy
+
+### **Rendering Approach**
+This application uses a **hybrid rendering strategy** optimized for performance and SEO:
+
+#### **Static Site Generation (SSG)**
+- **`/` (Home Page)** - Pre-rendered at build time for optimal loading speed
+- **`/explore` (Countries List)** - Pre-rendered with paginated country data for instant loading
+
+#### **Server-Side Rendering (SSR)**
+- **`/countries/[country]` (Country Details)** - Server-rendered on each request for:
+   - Real-time data accuracy
+   - SEO optimization for individual country pages
+   - Dynamic content based on country-specific data
+
+### **Why This Architecture?**
+- **Home & List Pages:** Static generation provides instant loading for frequently accessed pages
+- **Detail Pages:** Server rendering ensures fresh data and optimal SEO for each country
+- **Best of Both Worlds:** Fast static pages where appropriate, dynamic rendering where needed
 
 ***
 
@@ -84,7 +99,10 @@ Country Explorer is built with performance as a core priority, achieving excepti
    ```bash
    cp .env.example .env.local
    ```
-   Add any necessary environment variables (API endpoints, keys, etc.)
+   Add any necessary environment variables:
+   ```env
+   NEXT_PUBLIC_API_URL=https://restcountries.com/v3.1
+   ```
 
 5. **Run the development server:**
    ```bash
@@ -104,25 +122,31 @@ Country Explorer is built with performance as a core priority, achieving excepti
 
 ***
 
-## 🏗️ Architecture & Design Philosophy
+## 🏗️ Component Architecture & Design Philosophy
 
-### **Component Architecture**
-- **Modular design** with reusable, testable components
-- **Clean separation** of concerns between UI, logic, and data
-- **Responsive components** that adapt to different screen sizes
-- **Accessibility-first** approach with proper ARIA attributes
+### **Reusable Components**
+- **SearchBar Component:** Used in both full-screen (home) and compact (results) variants
+- **CountryCard Component:** Consistent country display across all grid layouts
+- **Layout Component:** Shared navigation and footer structure
+- **Loading Components:** Skeleton loaders for enhanced UX during data fetching
+
+### **State Management**
+- **React Hooks** for local component state
+- **Custom hooks** for API data fetching and caching
+- **Optimized re-renders** with useMemo and useCallback
 
 ### **Performance Optimizations**
-- **Debounced search** to minimize API calls
-- **Lazy loading** for images and content
-- **Efficient state management** to prevent unnecessary re-renders
-- **Optimized bundle size** with code splitting
+- **Debounced search** (300ms delay) to minimize API calls
+- **Lazy loading** for country flags and images
+- **Virtual scrolling** for large country lists
+- **Component code splitting** for optimal bundle sizes
 
 ### **User Experience Focus**
 - **Progressive disclosure** of information on country details pages
 - **Visual hierarchy** using typography, spacing, and color
 - **Intuitive navigation** with clear back buttons and breadcrumbs
 - **Error handling** with graceful fallbacks and user feedback
+- **Skeleton loading states** for better perceived performance
 
 ***
 
@@ -130,48 +154,166 @@ Country Explorer is built with performance as a core priority, achieving excepti
 
 ```
 src/
-├── components/           # Reusable UI components
-│   ├── SearchBar/       # Main search functionality
-│   ├── CountryCard/     # Individual country display
-│   └── Layout/          # Page layout wrapper
-├── pages/               # Next.js pages
-│   ├── index.js         # Home page
-│   ├── countries/       # Search results
-│   └── country/[id].js  # Individual country details
-├── hooks/               # Custom React hooks
-├── utils/               # Helper functions
-└── styles/              # Global and component styles
+├── app/                    # Next.js 14+ App Router
+│   ├── page.tsx           # Home page (SSG)
+│   ├── explore/           # Countries exploration
+│   │   └── page.tsx       # Countries list (SSG)
+│   ├── countries/         
+│   │   └── [country]/     
+│   │       └── page.tsx   # Country details (SSR)
+│   ├── layout.tsx         # Root layout
+│   └── globals.css        # Global styles
+├── components/            # Reusable UI components
+│   ├── SearchBar/         # Main search functionality
+│   │   ├── SearchBar.tsx
+│   │   └── index.ts
+│   ├── CountryCard/       # Individual country display
+│   │   ├── CountryCard.tsx
+│   │   └── index.ts
+│   ├── Layout/            # Page layout wrapper
+│   └── ui/                # Base UI components
+├── hooks/                 # Custom React hooks
+│   ├── useDebounce.ts
+│   ├── useCountries.ts
+├── lib/                   # Utility functions & API
+│   ├── api.ts            # REST Countries API integration
+│   ├── utils.ts          # Helper functions
+│   └── types.ts          # TypeScript definitions
+└── public/               # Static assets
 ```
 
 ***
 
-## 🎨 Design Highlights
+## 🎨 Design System
 
 ### **Color Palette**
-- **Primary Orange:** `#FF6B35` - Used for CTAs and highlights
-- **Neutral Grays:** Various shades for text and backgrounds
-- **Status Colors:** Green for positive states, organized information hierarchy
+- **Primary Orange:** `#FF6B35` - Used for CTAs and interactive elements
+- **Neutral Grays:** `#2D3748`, `#4A5568`, `#718096` for text hierarchy
+- **Background:** `#F7FAFC` for light theme, `#1A202C` for dark theme
+- **Status Colors:** Green (`#38A169`) for success, Red (`#E53E3E`) for errors
 
-### **Typography**
-- **Clear hierarchy** with consistent heading sizes
-- **Readable body text** optimized for scanning
-- **Accessible contrast ratios** meeting WCAG guidelines
+### **Typography Scale**
+- **Display:** 48px/56px for hero text
+- **Heading 1:** 36px/44px for page titles
+- **Heading 2:** 24px/32px for section titles
+- **Body:** 16px/24px for readable content
+- **Caption:** 14px/20px for metadata
 
-### **Layout Principles**
-- **Grid-based design** for consistent alignment
-- **Generous whitespace** for improved readability
-- **Card-based information** architecture for easy scanning
+### **Spacing System**
+- **Base unit:** 8px
+- **Scale:** 4px, 8px, 16px, 24px, 32px, 48px, 64px, 96px
+- **Container max-width:** 1200px with responsive padding
+
+### **Component Design Principles**
+- **Mobile-first responsive design** with breakpoints at 640px, 768px, 1024px, 1280px
+- **Touch-friendly interactions** with minimum 44px touch targets
+- **Consistent visual hierarchy** with proper heading structure
+- **Accessible color contrast** meeting WCAG AA standards (4.5:1 ratio)
 
 ***
 
-## 🔄 API Integration
+## 🔄 API Integration & Data Flow
 
-This application integrates with the **REST Countries API** (`https://restcountries.com/`) to fetch:
-- Basic country information (name, flag, capital, population)
-- Geographic data (coordinates, area, borders, timezones)
-- Political information (independence status, UN membership)
-- Cultural details (languages, currencies, native names)
-- Communication codes (phone, ISO, domain)
+### **REST Countries API Integration**
+Base URL: `https://restcountries.com/v3.1`
+
+#### **Endpoints Used:**
+- **Search:** `/name/{name}` - Country search with spell tolerance
+- **All Countries:** `/all` - Complete country list for pagination
+- **By Code:** `/alpha/{code}` - Individual country details by ISO code
+
+#### **Data Fetching Strategy:**
+- **Home Page:** No initial API calls (SSG)
+- **Countries List:** Pre-fetched at build time with pagination (SSG)
+- **Country Details:** Fresh data on each request (SSR)
+- **Search Results:** Client-side debounced requests
+
+#### **Error Handling:**
+- Network failures with retry logic
+- Invalid country codes with fallback suggestions
+- Empty search results with helpful messaging
+- API rate limiting with graceful degradation
+
+***
+
+## 🧩 Key Components
+
+### **SearchBar Component**
+**Location:** `src/components/SearchBar/`
+- **Variants:** Full-screen (home) and compact (results page)
+- **Features:** Debounced input, autocomplete suggestions, keyboard navigation
+- **Accessibility:** ARIA labels, screen reader support, focus management
+
+### **CountryCard Component**
+**Location:** `src/components/CountryCard/`
+- **Displays:** Flag, name, capital, currency, region, population
+- **Features:** Hover effects, responsive sizing, loading states
+- **Performance:** Lazy-loaded images with placeholder
+
+### **Pagination Component**
+**Location:** `src/components/Pagination/`
+- **Strategy:** Load more button with infinite scroll option
+- **Performance:** Virtual scrolling for large datasets
+- **UX:** Clear loading indicators and smooth transitions
+
+***
+
+## 🔧 Development Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run type-check   # Run TypeScript checks
+npm run test         # Run test suite
+```
+
+***
+
+## 🌍 Deployment
+
+### **Vercel Deployment**
+The application is automatically deployed on Vercel with:
+- **Preview deployments** for all pull requests
+- **Production deployment** from main branch
+- **Environment variables** configured in Vercel dashboard
+- **Custom domain** support with SSL
+
+### **Build Configuration**
+```javascript
+// next.config.js
+module.exports = {
+  images: {
+    domains: ['flagcdn.com', 'upload.wikimedia.org'],
+    formats: ['image/webp', 'image/avif'],
+  },
+  experimental: {
+    appDir: true,
+  },
+}
+```
+
+***
+
+## 🧪 Testing Strategy
+
+### **Performance Testing**
+- Lighthouse CI integration
+- Bundle size monitoring
+- Core Web Vitals tracking
+- API response time monitoring
+
+***
+
+## 🔐 Security & Best Practices
+
+- **Environment variables** for sensitive configuration
+- **API rate limiting** to prevent abuse
+- **Input sanitization** for search queries
+- **HTTPS enforcement** in production
+- **Content Security Policy** headers
+- **No sensitive data** stored in localStorage
 
 ***
 
@@ -184,6 +326,8 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 - Write meaningful commit messages
 - Add tests for new features
 - Update documentation as needed
+- Ensure accessibility compliance
+- Test across different devices and browsers
 
 ***
 
@@ -202,5 +346,3 @@ This project is open source and available under the [MIT License](LICENSE).
 ***
 
 **Built with ❤️ by [Vishal Chauhan]** | [GitHub](https://github.com/vish-han) | [LinkedIn](#)
-
-[1](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/81190653/69dc178e-e5a5-4ddc-a9c4-d056831237b5/image.jpg)

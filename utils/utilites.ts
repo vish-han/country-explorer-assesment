@@ -27,7 +27,7 @@ export const getLanguages = (countryData:Country) => {
 
 export const getBorders = (countryData:Country) => {
     if (!countryData.borders || countryData.borders.length === 0) {
-        return countryData.landlocked ? 'Landlocked country' : 'Island nation';
+        return countryData.landlocked ? 'Landlocked explore' : 'Island nation';
     }
     return countryData.borders.join(', ');
 };

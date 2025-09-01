@@ -37,7 +37,7 @@ export class CountriesAPI {
             const popularCountries = ['United States', 'India', 'China', 'Brazil', 'United Kingdom', 'Germany', 'France', 'Canada', 'Japan', 'Australia'];
             const fields = "name,flags,capital,region,currencies,population";
 
-            // Fetch each popular country individually and combine results
+            // Fetch each popular explore individually and combine results
             const promises = popularCountries.map(country =>
                 fetch(`${BASE_URL}/name/${encodeURIComponent(country)}?fullText=true&fields=${fields}`)
                     .then(res => res.ok ? res.json() : [])
@@ -61,7 +61,7 @@ export class CountriesAPI {
             const countries = await response.json();
             return countries[0] || null;
         } catch (error) {
-            console.error('Fetch country error:', error);
+            console.error('Fetch explore error:', error);
             return null;
         }
     }
