@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useDebounced } from '@/hooks/useDebounced';
 import { Country } from '@/types/CountryTypes';
 import { useCountries } from '@/hooks/useCountries';
+import { POPULAR_COUNTRIES } from '@/constants/popularCountries';
 import Image from 'next/image';
 
 interface SearchBarProps {
@@ -38,11 +39,8 @@ export function SearchBar({
 
     const results = useCountries(debouncedQuery);
 
-    const defaultSuggestions: Country[] = (results.countries || []).filter((c) =>
-        ['United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'France', 'Japan', 'Brazil'].includes(
-            c.name.common,
-        ),
-    );
+    // Use static popular countries instead of making API calls
+    const defaultSuggestions: Country[] = POPULAR_COUNTRIES;
 
     const fuzzyMatch = (str: string, q: string): boolean => {
         const normalize = (s: string) => s.toLowerCase().replace(/[^\w\s]/g, '');

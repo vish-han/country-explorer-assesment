@@ -28,28 +28,11 @@ export function useCountries(debouncedQuery?: string,countryName?:string, option
                 let results: Country[];
 
                 switch (mode) {
-                    case 'all':
-                        // For explore page - fetch all countries
-                        results = await CountriesAPI.getAllCountries();
-                        break;
-
-                    case 'popular':
-                        // For default suggestions
-                        results = await CountriesAPI.getPopularCountries();
-                        break;
-                    case 'searchByName':
-                        if (!countryName) {
-                            results = [];
-                        } else {
-                            const country = await CountriesAPI.getCountryByName(countryName);
-                            results = country ? [country] : [];
-                        }
-                        break;
                     case 'search':
                     default:
                         // For search functionality
                         if (!debouncedQuery?.trim()) {
-                            results = await CountriesAPI.getPopularCountries();
+                            results = []
                         } else {
                             results = await CountriesAPI.searchCountries(debouncedQuery);
                         }
