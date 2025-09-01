@@ -68,6 +68,41 @@ This application uses a **hybrid rendering strategy** optimized for performance 
 - **Detail Pages:** Server rendering ensures fresh data and optimal SEO for each country
 - **Best of Both Worlds:** Fast static pages where appropriate, dynamic rendering where needed
 
+
+
+## 🌐 Live Demo
+
+**Experience the app live:** [https://country-explorer-assesment.vercel.app](https://country-explorer-assesment.vercel.app/)
+
+***
+
+## 🏗️ Component Architecture & Design Philosophy
+
+### **Reusable Components**
+- **SearchBar Component:** Used in both full-screen (home) and compact (results) variants
+- **CountryCard Component:** Consistent country display across all grid layouts
+- **Layout Component:** Shared navigation and footer structure
+- **Loading Components:** Skeleton loaders for enhanced UX during data fetching
+
+### **State Management**
+- **React Hooks** for local component state
+- **Custom hooks** for API data fetching and caching
+- **Optimized re-renders** with useMemo and useCallback
+
+### **Performance Optimizations**
+- **Debounced search** (300ms delay) to minimize API calls
+- **Lazy loading** for country flags and images
+- **Virtual scrolling** for large country lists
+- **Component code splitting** for optimal bundle sizes
+
+### **User Experience Focus**
+- **Progressive disclosure** of information on country details pages
+- **Visual hierarchy** using typography, spacing, and color
+- **Intuitive navigation** with clear back buttons and breadcrumbs
+- **Error handling** with graceful fallbacks and user feedback
+- **Skeleton loading states** for better perceived performance
+
+***
 ***
 
 ## 🚀 Quick Start
@@ -113,40 +148,6 @@ This application uses a **hybrid rendering strategy** optimized for performance 
 
 6. **Open your browser:**
    Navigate to `http://localhost:3000` to see the application in action.
-
-***
-
-## 🌐 Live Demo
-
-**Experience the app live:** [https://country-explorer-assesment.vercel.app](https://country-explorer-assesment.vercel.app/)
-
-***
-
-## 🏗️ Component Architecture & Design Philosophy
-
-### **Reusable Components**
-- **SearchBar Component:** Used in both full-screen (home) and compact (results) variants
-- **CountryCard Component:** Consistent country display across all grid layouts
-- **Layout Component:** Shared navigation and footer structure
-- **Loading Components:** Skeleton loaders for enhanced UX during data fetching
-
-### **State Management**
-- **React Hooks** for local component state
-- **Custom hooks** for API data fetching and caching
-- **Optimized re-renders** with useMemo and useCallback
-
-### **Performance Optimizations**
-- **Debounced search** (300ms delay) to minimize API calls
-- **Lazy loading** for country flags and images
-- **Virtual scrolling** for large country lists
-- **Component code splitting** for optimal bundle sizes
-
-### **User Experience Focus**
-- **Progressive disclosure** of information on country details pages
-- **Visual hierarchy** using typography, spacing, and color
-- **Intuitive navigation** with clear back buttons and breadcrumbs
-- **Error handling** with graceful fallbacks and user feedback
-- **Skeleton loading states** for better perceived performance
 
 ***
 
@@ -293,16 +294,6 @@ module.exports = {
   },
 }
 ```
-
-***
-
-## 🧪 Testing Strategy
-
-### **Performance Testing**
-- Lighthouse CI integration
-- Bundle size monitoring
-- Core Web Vitals tracking
-- API response time monitoring
 
 ***
 
